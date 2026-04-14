@@ -1,0 +1,42 @@
+{
+  "name": "shazam-cpp-frontend",
+  "version": "2.1.0",
+  "description": "Shazam-CPP Audio Fingerprint Music Recognition System",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "node scripts/seed-database.mjs",
+    "test-bench": "node scripts/test-bench.mjs",
+    "test-bench:quick": "node scripts/test-bench.mjs --runs 5 --durations 5,10 --noise-levels clean",
+    "test-bench:full": "node scripts/test-bench.mjs --runs 10 --durations 3,5,10,15",
+    "plot-results": "..\\.venv\\Scripts\\python.exe scripts/plot-results.py test-results.csv",
+    "prepare-clips": "node scripts/prepare-test-clips.mjs --in-db-src ./test_audio/in-db --out-db-src ./test_audio/out-db --out-dir ./test-audio --manifest ./scripts/test-manifest.generated.csv --min-sec 15 --max-sec 20 --mode center",
+    "test-bench:real": "node scripts/test-bench-real.mjs --manifest ./scripts/test-manifest.example.csv --output test-results-real.csv --runs 3 --threshold 55",
+    "test-bench:real:generated": "node scripts/test-bench-real.mjs --manifest ./scripts/test-manifest.generated.csv --output test-results-real.csv --runs 3 --threshold 55",
+    "plot-results:real": "..\\.venv\\Scripts\\python.exe scripts/plot-results-real.py test-results-real.csv"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.0.3",
+    "next": "^14.2.35",
+    "next-auth": "^4.24.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.3"
+  }
+}
