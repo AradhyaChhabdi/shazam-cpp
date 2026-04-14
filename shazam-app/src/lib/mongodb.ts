@@ -9,9 +9,11 @@ declare global {
   var mongoose: MongooseCache | undefined;
 }
 
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb://shazam-user:shazam@ac-ynm06qv-shard-00-00.uwkmaer.mongodb.net:27017,ac-ynm06qv-shard-00-01.uwkmaer.mongodb.net:27017,ac-ynm06qv-shard-00-02.uwkmaer.mongodb.net:27017/?ssl=true&replicaSet=atlas-42jmml-shard-0&authSource=admin&appName=shazam-cluster";
+const MONGODB_URI = process.env.MONGODB_URI!;
+
+if (!MONGODB_URI) {
+  throw new Error("MONGODB_URI is not defined");
+}
 
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
