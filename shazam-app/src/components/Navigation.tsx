@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 const navItems = [
   { label: "Listen", href: "/" },
   { label: "Library", href: "/songs" },
-  { label: "Admin", href: "/admin/upload" },
+  { label: "Admin", href: "/admin/login" },
 ];
 
 export default function Navigation() {
@@ -50,7 +50,7 @@ export default function Navigation() {
 
         {/* Admin user icon */}
         <Link
-          href={session?.user?.isAdmin ? "/admin/upload" : "/admin/login"}
+          href="/admin/login"
           className="w-8 h-8 rounded-full bg-white/8 border border-white/10 flex items-center justify-center hover:bg-white/12 transition"
           aria-label="Admin"
         >

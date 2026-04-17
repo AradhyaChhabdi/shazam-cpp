@@ -1,14 +1,31 @@
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useState, useEffect, useRef } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 
 export default function AdminLogin() {
   const router = useRouter();
+  const { status } = useSession();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ready, setReady] = useState(false);
+  const justLoggedInRef = useRef(false);
+
+  // Sign out any existing session when login page loads (only on initial load)
+  useEffect(() => {
+    // Skip sign-out if the user just logged in via the form
+    if (justLoggedInRef.current) {
+      return;
+    }
+
+    if (status === "authenticated") {
+      signOut({ redirect: false }).then(() => setReady(true));
+    } else if (status === "unauthenticated") {
+      setReady(true);
+    }
+  }, [status]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +42,8 @@ export default function AdminLogin() {
       if (result?.error) {
         setError("Invalid username or password");
       } else {
+        // Mark that we just logged in so the useEffect doesn't sign us out
+        justLoggedInRef.current = true;
         router.push("/admin/upload");
       }
     } catch (err) {
@@ -36,6 +55,11 @@ export default function AdminLogin() {
 
   return (
     <Layout>
+      {!ready ? (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+        </div>
+      ) : (
       <div className="min-h-screen flex items-center justify-center px-4 pb-20">
         <div className="glass-card rounded-2xl p-8 w-full max-w-md">
           {/* Header */}
@@ -130,6 +154,7 @@ export default function AdminLogin() {
           </div>
         </div>
       </div>
+      )}
     </Layout>
   );
 }

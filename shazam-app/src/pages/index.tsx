@@ -262,18 +262,13 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Action buttons */}
+          {/* Action button */}
           <div className="flex items-center gap-3">
             <button
               onClick={resetRecording}
-              className="px-5 py-2.5 rounded-lg text-sm font-medium text-white border border-surface-border hover:bg-white/5 transition"
-            >
-              Listen again
-            </button>
-            <button
               className="px-5 py-2.5 rounded-lg text-sm font-medium text-surface bg-white hover:bg-white/90 transition"
             >
-              Save to library
+              Try New
             </button>
           </div>
         </div>
