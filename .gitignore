@@ -1,0 +1,16 @@
+# Executables
+engine/bin/
+*.exe
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+
+# Build folders
+dist/
+build/
+
+# Environment files
+.env
